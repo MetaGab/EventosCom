@@ -1,0 +1,345 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+	<title>{{evento.nombre}}</title>
+
+	<!-- Google font -->
+	<link href="https://fonts.googleapis.com/css?family=Hind:400,700" rel="stylesheet">
+
+	<!-- Bootstrap -->
+	<link type="text/css" rel="stylesheet" href="{% static "css/bootstrap.min.css" %}" />
+
+	<!-- Slick -->
+	<link type="text/css" rel="stylesheet" href="{% static "css/slick.css" %}" />
+	<link type="text/css" rel="stylesheet" href="{% static "css/slick-theme.css" %}" />
+
+	<!-- nouislider -->
+	<link type="text/css" rel="stylesheet" href="{% static "css/nouislider.min.css" %}" />
+
+	<!-- Font Awesome Icon -->
+	<link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}">
+
+	<!-- Custom stlylesheet -->
+	<link type="text/css" rel="stylesheet" href="{% static "css/style.css" %}" />
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+</head>
+
+<body>
+	<!-- HEADER -->
+	<header>
+		
+		<!-- header -->
+		<div id="header">
+			<div class="container">
+				<div class="pull-left">
+					<!-- Logo -->
+					<div class="header-logo">
+						<a class="logo" href="/">
+							<img src="{% static "img/logo.png" %}" alt="">
+						</a>
+					</div>
+					<!-- /Logo -->
+
+					<!-- Search -->
+					<div class="header-search">
+						<form action="/eventos">
+							<input class="input search-input" name="query" type="text" value="{{query}}" placeholder="Que estas buscando?">
+							<select class="input search-categories" name="cat_search">
+								{% for c in categorias %}
+								<option value="{{c.id}}">{{c.nombre}}</option>
+								{% endfor %}
+							</select>
+							<button class="search-btn"><i class="fa fa-search"></i></button>
+						</form>
+					</div>
+					<!-- /Search -->
+				</div>
+				<div class="pull-right">
+					<ul class="header-btns">
+						<!-- Account -->
+						<li class="header-account dropdown default-dropdown">
+							{% if user %}
+							<div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true">
+								<div class="header-btns-icon">
+									<i class="fa fa-user-o"></i>
+								</div>
+								<strong class="text-uppercase">Mi Cuenta <i class="fa fa-caret-down"></i></strong>
+							</div>
+							
+							<ul class="custom-menu">
+								<li><a href="/perfil"><i class="fa fa-user-o"></i> Mi cuenta</a></li>
+								<li><a href="/perfil/#editEmployeeModal"><i class="fa fa-exchange"></i> Editar Perfil</a></li>
+								<li><a href="/compras"><i class="fa fa-check"></i> Compras</a></li>
+								{%if user.es_admin %}
+								<li><a href="/crud"><i class="fa fa-user"></i> Admin</a></li>
+								{% endif %}
+								<li><a href="/logout"><i class="fa fa-times"></i> Logout</a></li>
+							</ul>
+							{% else %}
+							<a href="/login" class="text-uppercase">Login</a> / <a href="/signup" class="text-uppercase">Join</a>
+							{% endif %}
+						</li>
+						<!-- /Account -->
+						<!-- Mobile nav toggle-->
+						<li class="nav-toggle">
+							<button class="nav-toggle-btn main-btn icon-btn"><i class="fa fa-bars"></i></button>
+						</li>
+						<!-- / Mobile nav toggle -->
+					</ul>
+				</div>
+			</div>
+			<!-- header -->
+		</div>
+		<!-- container -->
+	</header>
+	<!-- /HEADER -->
+
+	<!-- NAVIGATION -->
+	<div id="navigation">
+		<!-- container -->
+		<div class="container">
+			<div id="responsive-nav">
+				<!-- category nav -->
+				<div class="category-nav show-on-click">
+					<span class="category-header">Informacion de evento </span>					
+				</div>
+				<!-- /category nav -->
+
+				<!-- menu nav -->
+				<div class="menu-nav">
+					<span class="menu-header">Menu <i class="fa fa-bars"></i></span>
+					<ul class="menu-list">
+						<li><a href="/">Home</a></li>
+						<li><a href="/eventos">Eventos</a></li>
+					</ul>
+				</div>
+				<!-- menu nav -->
+			</div>
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /NAVIGATION -->
+
+	<!-- BREADCRUMB -->
+	<div id="breadcrumb">
+		<div class="container">
+			<ul class="breadcrumb">
+				<li><a href="#">Home</a></li>
+				<li><a href="#">Eventos</a></li>
+				<li><a href="#">{{evento.categoria}}</a></li>
+				<li class="active">{{evento.artista}}</li>
+			</ul>
+		</div>
+	</div>
+	<!-- /BREADCRUMB -->
+
+	<!-- section -->
+	<div class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+				<!--  Product Details -->
+				<div class="product product-details clearfix">
+					<div class="col-md-6">
+						<div id="product-main-view">
+							<div class="product-view">
+								<img src="{{evento.imagen.url}}" alt="" style="height:500px;width:auto">
+							</div>
+						</div>
+						
+					</div>
+					<div class="col-md-6">
+						<div class="product-body">
+							
+							<h2 class="product-name">{{evento.nombre}}</h2>
+							
+							{% if evento.artista %}
+							<p><strong>Artista: {{evento.artista.nombre}} {{evento.artista.apellido_p}} {{evento.artista.apellido_m}}</strong>  </p>
+							{% endif %}
+							<p><strong>Lugar: {{evento.lugar.nombre}}, {{evento.lugar.direccion}} </strong>  </p>
+							{% if evento.fecha_fin == evento.fecha_inicio %}
+							<p><strong>{{evento.fecha_inicio|date:"d/m/Y"}} </strong>  </p>
+							{%else%}
+							<p><strong>{{evento.fecha_inicio|date:"d/m/Y"}} a {{evento.fecha_fin|date:"d/m/Y"}} </strong>  </p>
+							{%endif%}
+							<p>{{evento.descripcion}}</p>
+							
+
+							
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="product-tab">
+							<ul class="tab-nav">
+								<li><a data-toggle="tab" href="#tab2">Funciones</a></li>
+							</ul>
+							<div class="tab-content">
+								
+									<div class="row">
+										{% for f in funciones %}
+										{% if forloop.counter0|divisibleby:"3" %}
+										<div class="col-md-4">
+											<div class="product-reviews">
+										{% endif %}
+												<div class="single-review">
+													<div class="review-heading">
+														<strong><a href="#"><i class="fa fa-calendar"></i>{{f.fecha}}</a></strong>
+														<a href="/boletos/{{f.id}}"><button class="primary-btn">Ver Boletos</button></a>
+													</div>
+												</div>
+										{% if forloop.counter|divisibleby:"3" %}
+											</div>
+										</div>
+										{%endif%}
+										{% endfor %}
+										{% if not funciones.count|divisibleby:"3" %}
+											</div>
+										</div>
+										{% endif %}
+									</div>
+									<div class="row align-center">
+										<ul class="reviews-pages">
+											<li class="active">1</li>
+											<li><a href="#">2</a></li>
+											<li><a href="#">3</a></li>
+											<li><a href="#"><i class="fa fa-caret-right"></i></a></li>
+										</ul>
+									</div>
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!-- /Product Details -->
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /section -->
+
+	
+
+
+	<!-- FOOTER -->
+	<footer id="footer" class="section section-grey">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+				<!-- footer widget -->
+				<div class="col-md-3 col-sm-6 col-xs-6">
+					<div class="footer">
+						<!-- footer logo -->
+						<div class="footer-logo">
+							<a class="logo" href="#">
+		            <img src="./img/logo.png" alt="">
+		          </a>
+						</div>
+						<!-- /footer logo -->
+
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna</p>
+
+						<!-- footer social -->
+						<ul class="footer-social">
+							<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+							<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+							<li><a href="#"><i class="fa fa-instagram"></i></a></li>
+							<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+							<li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+						</ul>
+						<!-- /footer social -->
+					</div>
+				</div>
+				<!-- /footer widget -->
+
+				<!-- footer widget -->
+				<div class="col-md-3 col-sm-6 col-xs-6">
+					<div class="footer">
+						<h3 class="footer-header">Mi Cuenta</h3>
+						<ul class="list-links">
+							<li><a href="#">Mi Cuenta</a></li>
+							<li><a href="#">Editar perfil</a></li>
+							<li><a href="#">Compras</a></li>							
+						</ul>
+					</div>
+				</div>
+				<!-- /footer widget -->
+
+				<div class="clearfix visible-sm visible-xs"></div>
+
+				<!-- footer widget -->
+				<div class="col-md-3 col-sm-6 col-xs-6">
+					<div class="footer">
+						<h3 class="footer-header">Serivicio al Cliente</h3>
+						<ul class="list-links">
+							<li><a href="#">Acerca de nosotros</a></li>						
+							<li><a href="#">FAQ</a></li>
+						</ul>
+					</div>
+				</div>
+				<!-- /footer widget -->
+
+				<!-- footer subscribe -->
+				<div class="col-md-3 col-sm-6 col-xs-6">
+					<div class="footer">
+						<h3 class="footer-header">Contactanos</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.</p>
+						<form>
+							<div class="form-group">
+								<input class="input" placeholder="Introduce tu correo">
+							</div>
+							<button class="primary-btn">Recibe nuestras alertas</button>
+						</form>
+					</div>
+				</div>
+				<!-- /footer subscribe -->
+			</div>
+			<!-- /row -->
+			<hr>
+			<!-- row -->
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2 text-center">
+					<!-- footer copyright -->
+					<div class="footer-copyright">
+						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+						Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved  </a>
+						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+					</div>
+					<!-- /footer copyright -->
+				</div>
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</footer>
+	<!-- /FOOTER -->
+
+	<!-- jQuery Plugins -->
+	<script src="{% static "js/jquery.min.js" %}"></script>
+	<script src="{% static "js/bootstrap.min.js" %}"></script>
+	<script src="{% static "js/slick.min.js" %}"></script>
+	<script src="{% static "js/nouislider.min.js" %}"></script>
+	<script src="{% static "js/jquery.zoom.min.js" %}"></script>
+	<script src="{% static "js/main.js" %}"></script>
+
+</body>
+
+</html>

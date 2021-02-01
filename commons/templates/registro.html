@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Crear Cuenta</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="{% static "fonts/material-icon/css/material-design-iconic-font.min.css" %}">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="{% static "css/stylelogincreateaccount.css" %}">
+</head>
+<body>
+
+    <div class="main">
+
+        <!-- Sign up form -->
+        <section class="signup">
+            <div class="container">
+                <div class="signup-content">
+                    <div class="signup-form">
+                        <h2 class="form-title">Crear Cuenta</h2>
+                        <form method="POST" class="register-form" id="register-form">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="name" id="name" placeholder="Nombre" value="{{new_user.name}}" required/>
+                                 {{error.name}}
+                            </div>
+                            <div class="form-group">
+                                <label for="lname1"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="lname1" id="name" placeholder="Apellido Paterno" value="{{new_user.lname1}}" required/>
+                                    {{error.lname1}}
+                            </div>
+                            <div class="form-group">
+                                <label for="lname2"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="lname2" id="name" placeholder="Apellido Materno" value="{{new_user.lname2}}" required/>
+                                    {{error.lname2}}
+                            </div>
+                            <div class="form-group">
+                                <label for="email"><i class="zmdi zmdi-email"></i></label>
+                                <input type="email" name="email" id="email" placeholder="Email" value="{{new_user.email}}" required/>
+                                {{error.email}}
+                            </div>
+                            <div class="form-group">
+                                <label for="pass"><i class="zmdi zmdi-lock"></i></label>
+                                <input type="password" name="pass" id="pass" placeholder="Contraseña" value="{{new_user.pass}}" required/>
+                                {{error.pass}}
+                            </div>
+                            <div class="form-group">
+                                <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
+                                <input type="password" name="re_pass" id="re_pass" placeholder="Vuelve a escribir tu contraseña" value="{{new_user.re_pass}}" required/>
+                                {{error.re_pass}}
+                            </div>
+                            <div class="form-group form-button">
+                                <input type="submit" name="signup" id="signup" class="form-submit" value="Registrar" required/>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="signup-image">
+                        <figure><img src="{% static "img/signup.jpg" %}" alt="sing up image"></figure>
+                        <a href="/login" class="signup-image-link">Ya tengo cuenta</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sing in  Form -->
+        
+
+    </div>
+
+    <!-- JS -->
+    <script src="{% static "vendor/jquery/jquery.min.js" %}"></script>
+    <script src="{% static "js/main.js" %}"></script>
+</body>

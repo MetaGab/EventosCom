@@ -1,0 +1,147 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"><link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+	<title>Bitacora</title>
+	<!-- Slick -->
+	<link type="text/css" rel="stylesheet" href="{% static "css/slick.css" %}" />
+	<link type="text/css" rel="stylesheet" href="{% static "css/slick-theme.css" %}" />
+	<link type="text/css" rel="stylesheet" href="{% static "css/nouislider.min.css" %}" />
+	<link type="text/css" rel="stylesheet" href="{% static "css/jquery.datetimepicker.min.css" %}" />
+	<link type="text/css" rel="stylesheet" href="{% static "css/style.css" %}" />
+</head>
+<body>
+	<header>
+		<!-- header -->
+		<div id="header" style="background-color:#30323A">
+			<div class="container">
+				<div class="pull-right">
+					<ul class="header-btns">
+						<li class="nav-toggle">
+							<button class="nav-toggle-btn main-btn icon-btn"><i class="fa fa-bars"></i></button>
+						</li>
+						<!-- / Mobile nav toggle -->
+					</ul>
+				</div>
+			</div>
+			<!-- header -->
+		</div>
+		<!-- container -->
+	</header>
+	<!-- NAVIGATION -->
+	<div id="navigation">
+		<!-- container -->
+		<div class="container">
+			<div id="responsive-nav row">
+				<!-- category nav -->
+				<div class="category-nav dropdown col-md-3">
+					<span class="category-header" data-toggle="dropdown">Modelos <i class="fa fa-list"></i></span>
+					<ul class="category-list dropdown-menu">
+						{% for m in modelos %}
+						<li>
+							<a href="/crud/{{m}}"> {{m}} <i class="fa fa-angle-right"></i></a>
+						</li>
+						{% endfor %}
+					</ul>
+					
+				</div>
+				
+				<div class="category-nav dropdown col-md-3">
+					<span class="category-header" data-toggle="dropdown">Reportes <i class="fa fa-list"></i></span>
+					<ul class="category-list dropdown-menu">	
+					{% for r in reportes %}
+							<li>
+								<a href="/reportes/{{r.link}}"> {{r.name}} <i class="fa fa-angle-right"></i></a>
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+			
+				<div class="category-nav col-md-3">
+					<a href="/bitacora"><span class="category-header" >Bitacora <i class="fa fa-list"></i></span></a>
+				</div>
+				
+				<!-- /category nav -->
+
+				<!-- menu nav -->
+				
+				<!-- menu nav -->
+			</div>
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /NAVIGATION -->
+	
+    <div class="container">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">	
+					<div class="menu-nav col-md-6">
+						<span class="menu-header">Menu <i class="fa fa-bars"></i></span>
+					</div>
+                </div>
+            </div>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+						<th>
+                        </th>
+                        <th>Tabla Modificada</th>
+                        <th>Changelog</th>
+                        <th>Fecha</th>
+                        <th>Usuario</th>
+                        <th>Operacion</th>
+                    </tr>
+                </thead>
+                <tbody>
+					{% for t in tabla %}
+                    <tr>
+						<td></td>
+                        <td>{{t.nombre_tabla}}</td>
+                        <td>
+                            <ul>
+                                {% autoescape off %}
+                                {{t.campos}}
+                                {% endautoescape %}
+                            </ul>
+                        </td>
+                        <td>{{t.fecha}}</td>
+                        <td>{{t.usuario}}</td>
+                        <td>{{t.tipo_operacion}}</td>
+					</tr>
+					{% endfor %}
+                </tbody>
+            </table>
+			<div class="clearfix">
+                <ul class="pagination">
+                    <li class="page-item"><a href="#">Previous</a></li>
+                    <li class="page-item"><a href="#" class="page-link">1</a></li>
+                    <li class="page-item"><a href="#" class="page-link">2</a></li>
+                    <li class="page-item"><a href="#" class="page-link">3</a></li>
+                    <li class="page-item"><a href="#" class="page-link">4</a></li>
+                    <li class="page-item"><a href="#" class="page-link">5</a></li>
+                    <li class="page-item"><a href="#" class="page-link">Next</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+	<script src="{% static "js/jquery.min.js" %}"></script>
+	<script src="{% static "js/slick.min.js" %}"></script>
+	<script src="{% static "js/nouislider.min.js" %}"></script>
+	<script src="{% static "js/jquery.zoom.min.js" %}"></script>
+	
+	<script src="{% static "js/main.js" %}"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>            
